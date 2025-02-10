@@ -20,17 +20,17 @@ A desktop application for East West University students to automate course seat 
 
 **Create Profile**
 
-![Screenshot 2025-02-11 053631](https://github.com/user-attachments/assets/83365e57-9684-4e5f-b9f2-9205256c6487
+[Screenshot 2025-02-11 053631](https://github.com/user-attachments/assets/83365e57-9684-4e5f-b9f2-9205256c6487)
 
 
 **Seat Search**
 
-![Screenshot 2025-02-11 053655](https://github.com/user-attachments/assets/5a505b0f-3aa8-47e9-8eed-85ff3ccf9e70
+[Screenshot 2025-02-11 053655](https://github.com/user-attachments/assets/5a505b0f-3aa8-47e9-8eed-85ff3ccf9e70)
 
 
 **Email Template Manager**
 
-![Screenshot 2025-02-11 053710](https://github.com/user-attachments/assets/fe4be0fc-b8a8-4d5c-83bc-0ffac5e9b9e6)
+[Screenshot 2025-02-11 053710](https://github.com/user-attachments/assets/fe4be0fc-b8a8-4d5c-83bc-0ffac5e9b9e6)
 
 
 ## Privacy Assurance  

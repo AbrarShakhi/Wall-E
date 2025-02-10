@@ -12,7 +12,7 @@ from packaging import version
 
 # Constants
 LOCAL_VERSION_FILE = "version.txt"
-REMOTE_VERSION_URL = "https://raw.githubusercontent.com/sheikhhossainn/Wall-E/main/version.json"
+REMOTE_VERSION_URL = "https://raw.githubusercontent.com/sheikhhossainn/Wall-E/master/version.json"
 TEMP_UPDATE_FOLDER = "temp_update"
 
 
@@ -72,7 +72,7 @@ class AutoUpdater:
                 response.raise_for_status()
                 remote_data = response.json()
             except Exception as e:
-                self.show_popup("Error", f"Failed to check updates:\n")
+                self.show_popup("Error", f"Failed to check updates:\n{str(e)}")
                 return
 
             local_version = self.get_local_version()

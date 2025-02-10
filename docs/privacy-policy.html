@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Wall-E</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #1a73e8;
             --secondary-color: #34a853;
             --text-color: #202124;
             --light-gray: #f8f9fa;
+            --border-color: #dadce0;
+            --hover-color: #f1f3f4;
         }
         
         * {
@@ -19,7 +22,7 @@
         }
         
         body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--light-gray);
@@ -28,59 +31,70 @@
         .navbar {
             background: white;
             padding: 1rem 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .navbar-brand {
             font-size: 1.5rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--primary-color);
             text-decoration: none;
+            letter-spacing: -0.5px;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 2rem auto;
             padding: 2rem;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
         h1 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            font-size: 2.25rem;
+            font-weight: 400;
+            letter-spacing: -0.5px;
         }
         
         h2 {
             color: var(--text-color);
             margin: 2rem 0 1rem;
             font-size: 1.5rem;
+            font-weight: 500;
         }
         
         p {
             margin-bottom: 1rem;
             color: #5f6368;
+            font-size: 1rem;
+            line-height: 1.7;
         }
         
         ul {
-            margin-bottom: 1rem;
-            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
         }
         
         li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             color: #5f6368;
         }
         
         a {
             color: var(--primary-color);
             text-decoration: none;
+            transition: all 0.2s ease;
         }
         
         a:hover {
             text-decoration: underline;
+            color: #1557b0;
         }
         
         .last-updated {
@@ -88,16 +102,9 @@
             padding: 0.5rem 1rem;
             background-color: var(--light-gray);
             border-radius: 4px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            margin-top: 2rem;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            color: #5f6368;
         }
         
         .section {
@@ -105,13 +112,45 @@
             background: var(--light-gray);
             border-radius: 8px;
             margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+        
+        .section:hover {
+            background: var(--hover-color);
         }
         
         .contact-section {
             background: #e8f0fe;
-            padding: 1.5rem;
+            padding: 2rem;
             border-radius: 8px;
             margin-top: 2rem;
+            border: 1px solid #d2e3fc;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: #5f6368;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -137,7 +176,7 @@
                         <li>Advisor Email</li>
                     </ul>
                 </li>
-                <li><strong>Usage Information:</strong> We do not collect any system logs.</li>
+                <li><strong>Usage Information:</strong> We collect basic system logs to ensure proper functionality and security.</li>
             </ul>
         </div>
         
@@ -162,7 +201,7 @@
         
         <div class="section">
             <h2>4. Limited Access</h2>
-            <p>Wall-E is exclusively available to East West University students and faculty. Authentication is handled through institutional Email ID, and unauthorized access attempts are prohibited.</p>
+            <p>Wall-E is exclusively available to East West University students. Authentication is handled through institutional Email ID, and unauthorized access attempts are prohibited.</p>
         </div>
         
         <div class="section">

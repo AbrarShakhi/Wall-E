@@ -1,0 +1,33 @@
+# Virtual environment
+.venv/
+kivy_venv/
+
+# Compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Build artifacts
+build/
+dist/
+*.spec
+
+# Logs and system files
+*.log
+.DS_Store
+*.swp
+
+# OAuth tokens and credentials
+token.pickle
+walle_desktop_client.json
+
+# User-specific settings
+*.ini
+*.env
+
+# json files
+*.json
+!email_templates.json
+
+# Ignore IDE/editor settings
+.idea/

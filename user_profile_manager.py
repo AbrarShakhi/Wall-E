@@ -120,6 +120,10 @@ class CreateProfileScreen(Screen):
             "advisor_email": self.fields["Advisor Email"].text.strip(),
         }
 
+        if not profile_data["student_email"].endswith("@std.ewubd.edu"):
+            self.message_label.text = "Invalid student email! Must use @std.ewubd.edu"
+            return
+
         # Check if all fields are filled
         if not all(profile_data.values()):
             self.message_label.text = "All fields are required!"
@@ -299,6 +303,10 @@ class EditProfileScreen(Screen):
         profiles[self.profile_key] = updated_profile
         save_profiles(profiles)
         self.manager.current = "view_profiles"
+
+        if not updated_profile["student_email"].endswith("@std.ewubd.edu"):
+            self.show_error("Invalid student email! Must use @std.ewubd.edu")
+            return
 
         # Refresh dropdowns in the seat finder screen
         seat_finder = self.manager.get_screen('seat_finder')

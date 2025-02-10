@@ -11,15 +11,16 @@ A desktop application for East West University students to automate course seat 
 
 ## Features  
 - Create student profiles with portal credentials  
-- Set multiples parallel search timers  
+- Set multiple parallel search timers  
 - Pre-built email templates with smart fields  
 - Local history of search attempts  
 - Device-only data storage  
 
 ## Application Interface  
-![Profile Creation](https://via.placeholder.com/400x200?text=Profile+Setup+Screen)  
-![Seat Search](https://via.placeholder.com/400x200?text=Course+Search+Interface)  
-![Email Editor](https://via.placeholder.com/400x200?text=Template+Customization)  
+![Create Profile](![Screenshot 2025-02-11 053631](https://github.com/user-attachments/assets/83365e57-9684-4e5f-b9f2-9205256c6487)  
+![Seat Search](![Screenshot 2025-02-11 053655](https://github.com/user-attachments/assets/5a505b0f-3aa8-47e9-8eed-85ff3ccf9e70)  
+![Email Template Manager](![Screenshot 2025-02-11 053710](https://github.com/user-attachments/assets/fe4be0fc-b8a8-4d5c-83bc-0ffac5e9b9e6)
+
 
 ## Privacy Assurance  
 - 🔒 All data stored locally on your device  
@@ -28,7 +29,7 @@ A desktop application for East West University students to automate course seat 
 - Full privacy policy: [sheikhhossainn.github.io/Wall-E/](https://sheikhhossainn.github.io/Wall-E/)  
 
 ## Video Demo  
-[Watch Tutorial](https://via.placeholder.com/400x200?text=Wall-E+Demo+Video)  
+[Watch Tutorial](Coming Soon)  
 
 ---
 

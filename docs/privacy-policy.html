@@ -5,56 +5,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Wall-E</title>
     <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #34a853;
+            --text-color: #202124;
+            --light-gray: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            padding: 20px;
-            max-width: 800px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        p {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-gray);
         }
-        .container {
+        
+        .navbar {
             background: white;
-            padding: 20px;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        h2 {
+            color: var(--text-color);
+            margin: 2rem 0 1rem;
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: #5f6368;
+        }
+        
+        ul {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            color: #5f6368;
+        }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .last-updated {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            margin-top: 2rem;
+        }
+        
+        .section {
+            padding: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-section {
+            background: #e8f0fe;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
         }
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">Wall-E</a>
+    </nav>
+    
     <div class="container">
-        <h1>Privacy Policy for Wall-E</h1>
-        <p><strong>Last Updated:</strong> 11th February, 2025</p>
-        <p>Welcome to <strong>Wall-E</strong>! Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our application.</p>
-        <h2>1. Information We Collect</h2>
-        <ul>
-            <li><strong>Personal Information:</strong> If you use Google OAuth, we may collect your name, email address, and profile picture.</li>
-            <li><strong>Usage Data:</strong> We may collect non-personal information like app interactions, error logs, and device information.</li>
-        </ul>
-        <h2>2. How We Use Your Information</h2>
-        <ul>
-            <li>Authenticate users via Google OAuth.</li>
-            <li>Improve and personalize the user experience.</li>
-            <li>Ensure app security and prevent fraud.</li>
-        </ul>
-        <h2>3. Data Sharing & Security</h2>
-        <ul>
-            <li>We <strong>do not</strong> sell or share your personal data with third parties.</li>
-            <li>Your data is securely stored and only used within the scope of this application.</li>
-        </ul>
-        <h2>4. Third-Party Services</h2>
-        <p>Wall-E may use third-party services such as Google APIs. Your use of Google OAuth is subject to <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</p>
-        <h2>5. Your Rights</h2>
-        <p>You can request access, modification, or deletion of your personal data by contacting us.</p>
-        <h2>6. Changes to This Policy</h2>
-        <p>We may update this policy from time to time. You will be notified of significant changes.</p>
-        <h2>7. Contact Us</h2>
-        <p>If you have any questions, contact us at <a href="mailto:skhossain799@gmail.com">skhossain799@gmail.com</a>.</p>
+        <h1>Privacy Policy</h1>
+        <span class="last-updated">Last Updated: February 11th, 2025</span>
+        
+        <p>Welcome to Wall-E, a service exclusively for East West University (EWU) students. This Privacy Policy outlines how we handle your institutional information with the utmost care and respect for your privacy.</p>
+        
+        <div class="section">
+            <h2>1. Information We Collect</h2>
+            <ul>
+                <li><strong>Institutional Data:</strong> We access basic student information through Wall-E, including:
+                    <ul>
+                        <li>Student ID</li>
+                        <li>Student Name</li>
+                        <li>Student Email (@std.ewubd.edu)</li>
+                        <li>Advisor Email</li>
+                    </ul>
+                </li>
+                <li><strong>Usage Information:</strong> We do not collect any system logs.</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>2. How We Use Your Information</h2>
+            <ul>
+                <li>To facilitate automated email communication between students and advisors</li>
+                <li>To verify your status as an EWU student</li>
+                <li>To ensure system security and prevent unauthorized access</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>3. Data Protection & Security</h2>
+            <ul>
+                <li>Your institutional data remains within your device</li>
+                <li>We do not store passwords or sensitive academic records</li>
+                <li>Access is strictly limited to verified EWU students</li>
+                <li>We do not share your information with any third parties</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>4. Limited Access</h2>
+            <p>Wall-E is exclusively available to East West University students and faculty. Authentication is handled through institutional Email ID, and unauthorized access attempts are prohibited.</p>
+        </div>
+        
+        <div class="section">
+            <h2>5. Your Rights</h2>
+            <p>As an EWU student, you have the right to:</p>
+            <ul>
+                <li>Access your information within the system</li>
+                <li>Request correction of any inaccurate data</li>
+                <li>Report any unauthorized use of the system</li>
+                <li>Opt-out of automated email communications</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>6. Policy Updates</h2>
+            <p>Any changes to this privacy policy will be communicated through your institutional email.</p>
+        </div>
+        
+        <div class="contact-section">
+            <h2>7. Contact Information</h2>
+            <p>For questions or concerns about privacy and data usage, contact us at:</p>
+            <p><a href="mailto:skhossain799@gmail.com">skhossain799@gmail.com</a></p>
+            <p>East West University<br>
+            Aftabnagar, Dhaka-1212, Bangladesh</p>
+        </div>
     </div>
+    
+    <footer>
+        <p>&copy; 2025 Wall-E. All rights reserved. | <a href="/">Back to Home</a></p>
+    </footer>
 </body>
 </html>

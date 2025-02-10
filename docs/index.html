@@ -27,23 +27,6 @@
             background-color: var(--light-gray);
         }
         
-        .navbar {
-            background: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: var(--primary-color);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-        
         .container {
             max-width: 1000px;
             margin: 2rem auto;
@@ -60,6 +43,13 @@
             font-weight: 400;
             letter-spacing: -0.5px;
         }
+
+        h2 {
+            color: var(--text-color);
+            margin: 2rem 0 1rem;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
         
         p {
             margin-bottom: 1rem;
@@ -68,36 +58,45 @@
             line-height: 1.7;
         }
         
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
+        ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.75rem;
+            color: #5f6368;
+        }
+        
+        .last-updated {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            color: #5f6368;
+        }
+        
+        .section {
+            padding: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
             transition: all 0.2s ease;
         }
         
-        a:hover {
-            text-decoration: underline;
-            color: #1557b0;
+        .section:hover {
+            background: var(--hover-color);
         }
         
-        .links-section {
+        .contact-section {
+            background: #e8f0fe;
+            padding: 2rem;
+            border-radius: 8px;
             margin-top: 2rem;
-            text-align: center;
-        }
-        
-        .policy-link {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: background-color 0.2s ease;
-        }
-        
-        .policy-link:hover {
-            background-color: #1557b0;
-            text-decoration: none;
-            color: white;
+            border: 1px solid #d2e3fc;
         }
         
         footer {
@@ -109,19 +108,95 @@
             color: #5f6368;
             font-size: 0.875rem;
         }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="/" class="navbar-brand">Wall-E</a>
-    </nav>
-    
     <div class="container">
         <h1>Welcome to Wall-E</h1>
         <p>A service exclusively for East West University (EWU) students.</p>
+
+        <!-- Privacy Policy Content -->
+        <h1>Privacy Policy</h1>
+        <span class="last-updated">Last Updated: February 11th, 2025</span>
         
-        <div class="links-section">
-            <a href="privacy-policy.html" class="policy-link">Privacy Policy</a>
+        <p>Welcome to Wall-E, a service exclusively for East West University (EWU) students. This Privacy Policy outlines how we handle your institutional information with the utmost care and respect for your privacy.</p>
+        
+        <div class="section">
+            <h2>1. Information We Collect</h2>
+            <ul>
+                <li><strong>Institutional Data:</strong> We access basic student information through Wall-E, including:
+                    <ul>
+                        <li>Student ID</li>
+                        <li>Student Name</li>
+                        <li>Student Email (@std.ewubd.edu)</li>
+                        <li>Advisor Email</li>
+                    </ul>
+                </li>
+                <li><strong>Usage Information:</strong> We collect basic system logs to ensure proper functionality and security.</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>2. How We Use Your Information</h2>
+            <ul>
+                <li>To facilitate automated email communication between students and advisors</li>
+                <li>To verify your status as an EWU student</li>
+                <li>To ensure system security and prevent unauthorized access</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>3. Data Protection & Security</h2>
+            <ul>
+                <li>Your institutional data remains within your device</li>
+                <li>We do not store passwords or sensitive academic records</li>
+                <li>Access is strictly limited to verified EWU students</li>
+                <li>We do not share your information with any third parties</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>4. Limited Access</h2>
+            <p>Wall-E is exclusively available to East West University students. Authentication is handled through institutional Email ID, and unauthorized access attempts are prohibited.</p>
+        </div>
+        
+        <div class="section">
+            <h2>5. Your Rights</h2>
+            <p>As an EWU student, you have the right to:</p>
+            <ul>
+                <li>Access your information within the system</li>
+                <li>Request correction of any inaccurate data</li>
+                <li>Report any unauthorized use of the system</li>
+                <li>Opt-out of automated email communications</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>6. Policy Updates</h2>
+            <p>Any changes to this privacy policy will be communicated through your institutional email.</p>
+        </div>
+        
+        <div class="contact-section">
+            <h2>7. Contact Information</h2>
+            <p>For questions or concerns about privacy and data usage, contact us at:</p>
+            <p><a href="mailto:skhossain799@gmail.com">skhossain799@gmail.com</a></p>
+            <p>East West University<br>
+            Aftabnagar, Dhaka-1212, Bangladesh</p>
         </div>
     </div>
     

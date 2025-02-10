@@ -65,7 +65,7 @@ class ProfileApp(App):
         sm.add_widget(EmailTemplateScreen(name="email_template_manager"))
         sm.add_widget(ViewTemplateScreen(name="view_templates"))
         sm.add_widget(EmailTemplateScreen(name="edit_template"))
-        self.updater = AutoUpdater(self)  # Add this line
+        self.updater = AutoUpdater(self)
         self.updater.check_for_updates()
 
         return sm

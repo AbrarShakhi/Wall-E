@@ -171,7 +171,6 @@ class EmailTemplateScreen(Screen):
         templates['active'] = templates.get('default', DEFAULT_TEMPLATE)
         save_templates(templates)
 
-        # Update button appearances
         self.set_active_button.background_color = (1, 1, 1, 1)  # Normal
         self.set_default_button.background_color = (0.5, 0.5, 0.5, 1)  # Grayed out
 

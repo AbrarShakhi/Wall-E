@@ -127,12 +127,11 @@ class CreateProfileScreen(Screen):
 
         profiles = load_profiles()
 
-        # Ensure a unique key by finding the largest existing key
         if profiles:
             largest_key = max(int(key) for key in profiles.keys())  # Get the largest numeric key
             new_key = str(largest_key + 1)
         else:
-            new_key = "1"  # If no profiles exist, start with key "1"
+            new_key = "1"
 
         profiles[new_key] = profile_data
         save_profiles(profiles)

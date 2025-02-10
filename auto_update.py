@@ -60,8 +60,16 @@ class AutoUpdater:
         self.popup.open()
 
     def get_local_version(self):
-        if os.path.exists(LOCAL_VERSION_FILE):
-            with open(LOCAL_VERSION_FILE, "r") as f:
+        # Get the correct base path for both development and built app
+        if getattr(sys, 'frozen', False):
+            base_dir = sys._MEIPASS  # Use the temporary extraction directory
+        else:
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+
+        version_path = os.path.join(base_dir, LOCAL_VERSION_FILE)
+
+        if os.path.exists(version_path):
+            with open(version_path, "r") as f:
                 return f.read().strip()
         return "0.0.0"
 
@@ -105,7 +113,7 @@ class AutoUpdater:
 
             # Download update
             self.show_popup("Downloading", "Downloading update...")
-            update_file = os.path.join(TEMP_UPDATE_FOLDER, "main.exe")
+            update_file = os.path.join(TEMP_UPDATE_FOLDER, "Wall-E.exe")  # Match your EXE name
 
             with requests.get(download_url, stream=True) as r:
                 r.raise_for_status()
@@ -122,7 +130,7 @@ class AutoUpdater:
 
             # Replace the old executable
             self.show_popup("Updating", "Applying update...")
-            shutil.move(update_file, "main.exe")
+            shutil.move(update_file, "Wall-E.exe")
 
             # Schedule restart
             Clock.schedule_once(lambda dt: self.restart_app())

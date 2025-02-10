@@ -14,7 +14,6 @@ from email.mime.multipart import MIMEMultipart
 
 
 
-# If modifying these SCOPES, delete the token.pickle file.
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
 DEFAULT_TEMPLATE = {
@@ -53,7 +52,7 @@ def load_templates():
                 raise ValueError("Invalid template format.")
             return templates
     except (FileNotFoundError, json.JSONDecodeError, ValueError):
-        return {'default': DEFAULT_TEMPLATE}  # Fallback to default template if there's an issue
+        return {'default': DEFAULT_TEMPLATE}
 
 
 def load_active_template():
@@ -102,10 +101,10 @@ def send_email(student_name, student_email, advisor_email, course_code, section,
         section (str): The section of the course (e.g., A).
         student_id (str): The student ID.
     """
-    # Load the active email template
+
     template = load_active_template()
 
-    # Format the subject and body using the template and provided variables
+
     subject = template['subject'].format(course_code=course_code, section=section)
     body = template['body'].format(
         course_code=course_code,
@@ -114,13 +113,12 @@ def send_email(student_name, student_email, advisor_email, course_code, section,
         student_id=student_id
     )
 
-    # Create the email message
+
     message = MIMEMultipart()
-    message['From'] = student_email  # Sender's email address (student's email)
-    message['To'] = advisor_email  # Receiver's email address (advisor's email)
+    message['From'] = student_email
+    message['To'] = advisor_email
     message['Subject'] = subject
 
-    # Attach the email body
     message.attach(MIMEText(body, 'plain'))
 
     # Encode the message in base64

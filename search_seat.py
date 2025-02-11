@@ -337,7 +337,7 @@ class SeatFinderScreen(Screen):
             Select(driver.find_element(By.XPATH, "//select[@data-ng-model='filterSemesterId']")) \
                 .select_by_visible_text(self.selected_semester)
             driver.find_element(By.XPATH, "//a[contains(text(), 'Show Offered Courses')]").click()
-            time.sleep(2)
+            time.sleep(3)
             seats_found = False
             seat_info = ""
             for row in driver.find_elements(By.XPATH, "//tbody/tr"):

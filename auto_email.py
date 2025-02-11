@@ -12,10 +12,10 @@ from email.mime.multipart import MIMEMultipart
 
 
 
-
-
+# OAuth 2.0 Scopes
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
+# Default email template
 DEFAULT_TEMPLATE = {
     'subject': "{course_code} Add Request",
     'body': """Hi Advisor,
@@ -29,45 +29,32 @@ Sincerely Yours,
 {student_id}"""
 }
 
-
 def get_resource_path(relative_path):
-    """Get absolute path to resource, works for dev and PyInstaller"""
-    if getattr(sys, 'frozen', False):  # Check if running in a PyInstaller bundle
-        base_path = sys._MEIPASS  # PyInstaller creates this temp folder for bundled files
+    """Get absolute path to resource, works for dev and PyInstaller."""
+    if getattr(sys, 'frozen', False):
+        base_path = sys._MEIPASS
     else:
-        base_path = os.path.abspath(".")  # Use the current directory in development
+        base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
-
 def load_templates():
-    """
-    Loads all templates from the email_templates.json file.
-    If the file is missing or invalid, it falls back to the default template.
-    """
+    """Load email templates."""
     try:
         templates_path = get_resource_path("email_templates.json")
         with open(templates_path, 'r') as file:
-            templates = json.load(file)
-            if not isinstance(templates, dict):
-                raise ValueError("Invalid template format.")
-            return templates
+            return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError, ValueError):
         return {'default': DEFAULT_TEMPLATE}
 
-
 def load_active_template():
-    """
-    Loads the currently active template from email_templates.json.
-    If not set, it falls back to the default template.
-    """
+    """Get active email template."""
     templates = load_templates()
     return templates.get('active', templates.get('default', DEFAULT_TEMPLATE))
 
-
-def get_credentials():
-    """Get OAuth 2.0 credentials."""
+def get_credentials(student_email):
+    """Get OAuth 2.0 credentials for a specific student email."""
     creds = None
-    token_path = get_resource_path("token.pickle")
+    token_path = get_resource_path(f"token_{student_email}.pickle")  # Token per user
 
     # Load token if it exists
     if os.path.exists(token_path):
@@ -86,8 +73,8 @@ def get_credentials():
         # Save the credentials for future use
         with open(token_path, 'wb') as token:
             pickle.dump(creds, token)
-    return creds
 
+    return creds
 
 def send_email(student_name, student_email, advisor_email, course_code, section, student_id):
     """
@@ -101,39 +88,39 @@ def send_email(student_name, student_email, advisor_email, course_code, section,
         section (str): The section of the course (e.g., A).
         student_id (str): The student ID.
     """
-
-    template = load_active_template()
-
-
-    subject = template['subject'].format(course_code=course_code, section=section)
-    body = template['body'].format(
-        course_code=course_code,
-        section=section,
-        student_name=student_name,
-        student_id=student_id
-    )
-
-
-    message = MIMEMultipart()
-    message['From'] = student_email
-    message['To'] = advisor_email
-    message['Subject'] = subject
-
-    message.attach(MIMEText(body, 'plain'))
-
-    # Encode the message in base64
-    raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode('utf-8')
-
     try:
-        # Get OAuth 2.0 credentials
-        creds = get_credentials()
+        # Load the active email template
+        template = load_active_template()
+
+        subject = template['subject'].format(course_code=course_code, section=section)
+        body = template['body'].format(
+            course_code=course_code,
+            section=section,
+            student_name=student_name,
+            student_id=student_id
+        )
+
+        # Create the email message
+        message = MIMEMultipart()
+        message['From'] = student_email  # Sender's email address (student's email)
+        message['To'] = advisor_email  # Receiver's email address (advisor's email)
+        message['Subject'] = subject
+
+        # Attach the email body
+        message.attach(MIMEText(body, 'plain'))
+
+        # Encode the message in base64
+        raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode('utf-8')
+
+        # Get OAuth 2.0 credentials for the student's email
+        creds = get_credentials(student_email)
 
         # Build the Gmail API service
         service = build('gmail', 'v1', credentials=creds)
 
         # Send the email
         service.users().messages().send(
-            userId='me',
+            userId='me',  # 'me' refers to the authenticated user (student_email)
             body={'raw': raw_message}
         ).execute()
 

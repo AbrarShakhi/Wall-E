@@ -5,6 +5,6 @@
     },
     "active": {
         "subject": "{course_code} Add Request",
-        "body": "Hi Advisor,\n\nI want to add {course_code} section {section}. Hi there.\n\nThanks for your time.\n\nSincerely Yours,\n{student_name},\n{student_id}"
+        "body": "Hi Advisor,\n\nI want to add {course_code} section {section}. \n\nThanks for your time.\n\nSincerely Yours,\n{student_name},\n{student_id}"
     }
 }

@@ -18,7 +18,7 @@ dist/
 *.swp
 
 # OAuth tokens and credentials
-token.pickle
+*.pickle
 walle_desktop_client.json
 
 # User-specific settings

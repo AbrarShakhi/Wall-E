@@ -37,6 +37,23 @@ def calculate_available_seats(seat_data):
     except ValueError:
         return None, None
 
+def get_persistent_dir():
+    """Get platform-specific persistent directory for storing data."""
+    if os.name == "nt":  # Windows
+        base_dir = os.getenv('APPDATA')
+    elif os.name == "posix":  # macOS/Linux
+        base_dir = os.path.expanduser('~/.local/share')
+    else:
+        base_dir = os.path.abspath(".")
+
+    app_dir = os.path.join(base_dir, "Wall-E App")
+    os.makedirs(app_dir, exist_ok=True)
+    return app_dir
+
+def get_file_path(filename):
+    """Get full path to a file in the persistent directory."""
+    return os.path.join(get_persistent_dir(), filename)
+
 
 class AlarmManager:
     def __init__(self):
@@ -45,16 +62,18 @@ class AlarmManager:
         self.load_alarms()
 
     def load_alarms(self):
+        """Load alarms from alarms.json in the persistent directory."""
         self.alarms = []
-        if os.path.exists('alarms.json'):
+        alarms_path = get_file_path("alarms.json")
+        if os.path.exists(alarms_path):
             try:
-                with open('alarms.json', 'r') as f:
+                with open(alarms_path, 'r') as f:
                     content = f.read()
                     if content.strip():
                         raw_alarms = json.loads(content)
                         self.alarms = [a for a in raw_alarms if self.validate_alarm(a)]
             except (json.JSONDecodeError, KeyError):
-                with open('alarms.json', 'w') as f:
+                with open(alarms_path, 'w') as f:
                     json.dump([], f)
 
     def validate_alarm(self, alarm):
@@ -67,7 +86,8 @@ class AlarmManager:
             clean_alarm = alarm.copy()
             clean_alarm.pop('clock_event', None)
             clean_alarms.append(clean_alarm)
-        with open('alarms.json', 'w') as f:
+        alarms_path = get_file_path("alarms.json")
+        with open(alarms_path, 'w') as f:
             json.dump(clean_alarms, f, indent=2)
 
     def add_alarm(self, alarm_data):
@@ -152,8 +172,6 @@ class TimerPopup(Popup):
             item.add_widget(Label(text=f"{time_str} ({days_str})", halign='left'))
             btn_box = BoxLayout(size_hint_x=None, width=150, spacing=5)
             btn_box.add_widget(
-                Button(text='Edit', size_hint_x=None, width=70, on_press=lambda x, a=alarm: self.edit_alarm(a)))
-            btn_box.add_widget(
                 Button(text='Delete', size_hint_x=None, width=70, on_press=lambda x, a=alarm: self.delete_alarm(a)))
             item.add_widget(btn_box)
             self.alarm_list.add_widget(item)
@@ -186,24 +204,6 @@ class TimerPopup(Popup):
     def delete_alarm(self, alarm):
         self.alarm_manager.delete_alarm(alarm)
         self.refresh_alarm_list()
-
-    def edit_alarm(self, alarm):
-        edit_popup = TimerPopup(self.seat_finder)
-        edit_popup.title = "Edit Alarm"
-        hour = int(alarm['time'][:2])
-        minute = int(alarm['time'][3:])
-        period = 'AM' if hour < 12 else 'PM'
-        if hour > 12:
-            hour -= 12
-        elif hour == 0:
-            hour = 12
-        edit_popup.hour_spinner.text = f"{hour:02d}"
-        edit_popup.minute_spinner.text = f"{minute:02d}"
-        edit_popup.ampm_spinner.text = period
-        for day, toggle in edit_popup.repeat_days.items():
-            toggle.state = 'down' if day in alarm.get('repeat', []) else 'normal'
-        edit_popup.bind(on_dismiss=lambda x: self.refresh_alarm_list())
-        edit_popup.open()
 
 
 class SeatFinderScreen(Screen):

@@ -27,7 +27,6 @@ walle_desktop_client.json
 
 # json files
 *.json
-!email_templates.json
 
 # Ignore IDE/editor settings
 .idea/

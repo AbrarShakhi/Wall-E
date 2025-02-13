@@ -8,25 +8,41 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
 import os
 import sys
-from pathlib import Path
 
 
 
+# Persistent Directory Logic (aligned with email_template_manager.py)
+def get_persistent_dir():
+    """Get platform-specific persistent directory for storing data."""
+    if os.name == "nt":  # Windows
+        base_dir = os.getenv('APPDATA')
+    elif os.name == "posix":  # macOS/Linux
+        base_dir = os.path.expanduser('~/.local/share')
+    else:
+        base_dir = os.path.abspath(".")
+
+    app_dir = os.path.join(base_dir, "Wall-E App")
+    os.makedirs(app_dir, exist_ok=True)
+    return app_dir
+
+def get_file_path(filename):
+    """Get full path to a file in the persistent directory."""
+    return os.path.join(get_persistent_dir(), filename)
 
 def get_resource_path(relative_path):
-    """Get absolute path to resource, works for dev and PyInstaller"""
+    """Get absolute path to resource, works for dev and PyInstaller."""
     if getattr(sys, 'frozen', False):
         base_path = sys._MEIPASS
     else:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
-
-# Loading and saving profiles logic
+# Profile Loading/Saving (updated to use persistent directory)
 def load_profiles():
     """Load the profiles from the JSON file."""
+    profiles_path = get_file_path("profiles.json")
     try:
-        with open('profiles.json', 'r') as file:
+        with open(profiles_path, 'r') as file:
             return json.load(file)
     except FileNotFoundError:
         return {}
@@ -35,12 +51,12 @@ def load_profiles():
 
 def save_profiles(profiles):
     """Save the updated profiles to the JSON file."""
+    profiles_path = get_file_path("profiles.json")
     try:
-        with open('profiles.json', 'w') as file:
+        with open(profiles_path, 'w') as file:
             json.dump(profiles, file, indent=4)
     except Exception as e:
         print(f"Error saving profiles: {e}")
-
 
 # Profile Management Screens
 class ProfileManagementScreen(Screen):
@@ -280,6 +296,9 @@ class EditProfileScreen(Screen):
             self.fields[name] = TextInput(hint_text=name, multiline=False)
             layout.add_widget(self.fields[name])
 
+        self.message_label = Label(text="", color=(1, 0, 0, 1), size_hint_y=None, height=30)
+        layout.add_widget(self.message_label)
+
         save_button = Button(text="Save Changes", size_hint_y=None, height=50)
         save_button.bind(on_press=self.save_profile)
         layout.add_widget(save_button)
@@ -302,7 +321,8 @@ class EditProfileScreen(Screen):
         profiles = load_profiles()
         profiles[self.profile_key] = updated_profile
         save_profiles(profiles)
-        self.manager.current = "view_profiles"
+
+        self.message_label.text = "Profile saved successfully!"
 
         if not updated_profile["student_email"].endswith("@std.ewubd.edu"):
             self.show_error("Invalid student email! Must use @std.ewubd.edu")

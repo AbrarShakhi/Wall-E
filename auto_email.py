@@ -4,7 +4,6 @@ import base64
 import json
 import sys
 from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from email.mime.text import MIMEText
@@ -12,10 +11,11 @@ from email.mime.multipart import MIMEMultipart
 
 
 
+
 # OAuth 2.0 Scopes
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
-# Default email template
+# Default email template (fallback if files are missing)
 DEFAULT_TEMPLATE = {
     'subject': "{course_code} Add Request",
     'body': """Hi Advisor,
@@ -31,30 +31,61 @@ Sincerely Yours,
 
 def get_resource_path(relative_path):
     """Get absolute path to resource, works for dev and PyInstaller."""
-    if getattr(sys, 'frozen', False):
-        base_path = sys._MEIPASS
+    if getattr(sys, 'frozen', False):  # Check if the app is running as a built executable
+        base_path = sys._MEIPASS  # Use the temporary directory created by PyInstaller
     else:
-        base_path = os.path.abspath(".")
+        base_path = os.path.abspath(".")  # Use the current working directory in development
     return os.path.join(base_path, relative_path)
 
-def load_templates():
-    """Load email templates."""
-    try:
-        templates_path = get_resource_path("email_templates.json")
-        with open(templates_path, 'r') as file:
-            return json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError, ValueError):
-        return {'default': DEFAULT_TEMPLATE}
+def get_persistent_dir():
+    """Get platform-specific persistent directory for storing data (aligned with email_template_manager)."""
+    if os.name == "nt":  # Windows
+        base_dir = os.getenv('APPDATA')
+    elif os.name == "posix":  # macOS/Linux
+        base_dir = os.path.expanduser('~/.local/share')
+    else:
+        base_dir = os.path.abspath(".")
+
+    app_dir = os.path.join(base_dir, "Wall-E App")
+    os.makedirs(app_dir, exist_ok=True)
+    return app_dir
+
+def get_file_path(filename):
+    """Get full path to a file in the persistent directory."""
+    return os.path.join(get_persistent_dir(), filename)
+
+def load_template(template_type):
+    """Load a specific template (default or edited) from persistent storage."""
+    file_path = get_file_path(f"{template_type}_email_template.json")
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, IOError):
+            pass
+    return DEFAULT_TEMPLATE  # Fallback to default if file is missing/corrupt
 
 def load_active_template():
-    """Get active email template."""
-    templates = load_templates()
-    return templates.get('active', templates.get('default', DEFAULT_TEMPLATE))
+    """Load the active template based on settings.json (aligned with email_template_manager)."""
+    settings_path = get_file_path("settings.json")
+    if os.path.exists(settings_path):
+        try:
+            with open(settings_path, 'r') as f:
+                settings = json.load(f)
+            return load_template(settings.get("active", "default"))
+        except (json.JSONDecodeError, IOError):
+            pass
+    return load_template("default")  # Fallback to default template
+
+def get_persistent_token_path(student_email):
+    """Get a persistent path for storing the token file, using the same directory as email_template_manager."""
+    app_dir = get_persistent_dir()  # Use the same persistent directory as email_template_manager
+    return os.path.join(app_dir, f"token_{student_email}.pickle")
 
 def get_credentials(student_email):
     """Get OAuth 2.0 credentials for a specific student email."""
     creds = None
-    token_path = get_resource_path(f"token_{student_email}.pickle")  # Token per user
+    token_path = get_persistent_token_path(student_email)  # Use persistent token path
 
     # Load token if it exists
     if os.path.exists(token_path):
@@ -92,6 +123,7 @@ def send_email(student_name, student_email, advisor_email, course_code, section,
         # Load the active email template
         template = load_active_template()
 
+        # Format subject and body with placeholders
         subject = template['subject'].format(course_code=course_code, section=section)
         body = template['body'].format(
             course_code=course_code,
@@ -102,8 +134,8 @@ def send_email(student_name, student_email, advisor_email, course_code, section,
 
         # Create the email message
         message = MIMEMultipart()
-        message['From'] = student_email  # Sender's email address (student's email)
-        message['To'] = advisor_email  # Receiver's email address (advisor's email)
+        message['From'] = student_email
+        message['To'] = advisor_email
         message['Subject'] = subject
 
         # Attach the email body
@@ -120,7 +152,7 @@ def send_email(student_name, student_email, advisor_email, course_code, section,
 
         # Send the email
         service.users().messages().send(
-            userId='me',  # 'me' refers to the authenticated user (student_email)
+            userId='me',
             body={'raw': raw_message}
         ).execute()
 

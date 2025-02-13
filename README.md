@@ -40,7 +40,7 @@ A desktop application for East West University students to automate course seat 
 - Full privacy policy: [sheikhhossainn.github.io/Wall-E/](https://sheikhhossainn.github.io/Wall-E/)  
 
 ## Video Demo  
-[Watch Tutorial](Coming Soon)  
+Click here ➡️ : https://www.facebook.com/sheikh.hossain.bin.bakhtiar/videos/1569554367098470
 
 ---
 

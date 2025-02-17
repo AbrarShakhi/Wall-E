@@ -139,6 +139,10 @@ class EmailTemplateScreen(Screen):
         layout.add_widget(Label(text="Body:"))
         layout.add_widget(self.body_input)
 
+        # Add message label
+        self.message_label = Label(text="", color=(1, 0, 0, 1), size_hint_y=None, height=30)
+        layout.add_widget(self.message_label)
+
         save_button = Button(text="Save Edited Email", size_hint_y=None, height=50)
         save_button.bind(on_press=self.save_edited_email)
         layout.add_widget(save_button)
@@ -166,10 +170,12 @@ class EmailTemplateScreen(Screen):
         active_template = load_active_template()
         self.subject_input.text = active_template['subject']
         self.body_input.text = active_template['body']
+        self.message_label.text = ""  # Clear any previous message
 
     def save_edited_email(self, instance):
         edited_email = {'subject': self.subject_input.text.strip(), 'body': self.body_input.text.strip()}
         save_template(edited_email, "edited")
+        self.message_label.text = "Template saved successfully!"
 
 
 class EmailTemplateApp(App):

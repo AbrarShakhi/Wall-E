@@ -1,5 +1,30 @@
 # Wall-E: The Seat Finder
 
+## Quick Install: Dependencies
+
+**1. Create a virtual environment (recommended):**
+```bash
+python -m venv venv
+# Activate on Windows:
+venv\Scripts\activate
+# Activate on macOS/Linux:
+source venv/bin/activate
+```
+
+**2. Install all required Python packages:**
+```bash
+pip install kivy selenium google-auth google-auth-oauthlib google-api-python-client requests packaging
+```
+
+**3. Download and set up WebDriver for Selenium:**
+- For Chrome: [Download ChromeDriver](https://sites.google.com/chromium.org/driver/)
+- For Firefox: [Download GeckoDriver](https://github.com/mozilla/geckodriver/releases)
+- Add the driver to your PATH or your project directory.
+
+---
+
+Your environment is now ready for Wall-E development!
+
 ## Description  
 A desktop application for East West University students to automate course seat availability checks and advisor communications. Simplify your registration process with:
 
